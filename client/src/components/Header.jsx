@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <div>
-      <header className="p-4 flex justify-between">
+      <header className="flex justify-between">
         <a href="" className="flex items-center gap-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +44,10 @@ export default function Header() {
             </svg>
           </button>
         </div>
-        <div className="flex items-center border gap-2 border-gray-300 rounded-full py-2 px-4">
+        <Link
+          to={"/login"}
+          className="flex items-center border gap-2 border-gray-300 rounded-full py-2 px-4"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -71,7 +76,7 @@ export default function Header() {
               />
             </svg>
           </div>
-        </div>
+        </Link>
       </header>
     </div>
   );
