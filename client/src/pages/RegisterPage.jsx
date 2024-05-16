@@ -18,9 +18,10 @@ export default function RegisterPage() {
     });
   };
 
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
-    axios.get("/test");
+    await axios.post("/user/register", formData);
+    alert("Registration successful. Now you can log in.");
   };
 
   return (
@@ -35,6 +36,7 @@ export default function RegisterPage() {
             id="name"
             value={formData.name}
             onChange={handleChange}
+            required
           />
           <input
             type="email"
@@ -43,6 +45,7 @@ export default function RegisterPage() {
             id="email"
             value={formData.email}
             onChange={handleChange}
+            required
           />
           <input
             type="password"
@@ -52,6 +55,7 @@ export default function RegisterPage() {
             autoComplete="off"
             value={formData.password}
             onChange={handleChange}
+            required
           />
           <input
             type="password"
@@ -61,11 +65,12 @@ export default function RegisterPage() {
             autoComplete="off"
             value={formData.confirmPassword}
             onChange={handleChange}
+            required
           />
           <button className="primary mt-4">Register</button>
           <div className="py-2 flex gap-2 justify-center text-gray-500">
             Already have an account yet?{" "}
-            <Link className="text-primary hover:underline" to={"/login"}>
+            <Link className="text-primary hover:underline" to={"/user/login"}>
               Log in now
             </Link>
           </div>

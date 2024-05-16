@@ -11,7 +11,10 @@ export default function LoginPage() {
           <button className="primary mt-4">Login</button>
           <div className="py-2 flex gap-2 justify-center text-gray-500">
             Don&apos;t have an account yet?{" "}
-            <Link className="text-primary hover:underline" to={"/register"}>
+            <Link
+              className="text-primary hover:underline"
+              to={"/user/register"}
+            >
               Register now
             </Link>
           </div>
