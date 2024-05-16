@@ -11,6 +11,6 @@ exports.register = async (req, res, next) => {
     });
     res.status(201).json(newUser);
   } catch (err) {
-    console.log(err);
+    res.status(401).json(err);
   }
 };

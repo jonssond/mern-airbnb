@@ -20,8 +20,12 @@ export default function RegisterPage() {
 
   const registerUser = async (e) => {
     e.preventDefault();
-    await axios.post("/user/register", formData);
-    alert("Registration successful. Now you can log in.");
+    try {
+      await axios.post("/user/register", formData);
+      alert("Registration successful. Now you can log in.");
+    } catch (e) {
+      alert("Registration failed.");
+    }
   };
 
   return (
