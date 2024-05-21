@@ -24,7 +24,7 @@ export default function RegisterPage() {
       await axios.post("/user/register", formData);
       alert("Registration successful. Now you can log in.");
     } catch (e) {
-      alert("Registration failed.");
+      alert("Registration failed. Please try again.");
     }
   };
 
