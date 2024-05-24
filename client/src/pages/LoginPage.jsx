@@ -1,8 +1,10 @@
 import { Link, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import { UserContext } from "../UserContext";
 
 export default function LoginPage() {
+  const { setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,7 +23,10 @@ export default function LoginPage() {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/user/login", formData, { withCredentials: true });
+      const userInfo = await axios.post("/user/login", formData, {
+        withCredentials: true,
+      });
+      setUser(userInfo.data.data.userData);
       alert("Login succesful");
       setRedirect(true);
     } catch (e) {
@@ -42,7 +47,7 @@ export default function LoginPage() {
             type="email"
             name="email"
             placeholder="your@email.com"
-            id=""
+            id="email"
             value={formData.email}
             onChange={handleChange}
           />
@@ -50,7 +55,7 @@ export default function LoginPage() {
             type="password"
             name="password"
             placeholder="password"
-            id=""
+            id="password"
             value={formData.password}
             onChange={handleChange}
           />

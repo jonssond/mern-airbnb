@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { UserContextProvider } from "./UserContext";
 
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
@@ -11,13 +12,15 @@ axios.defaults.baseURL = "http://localhost:3000";
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<IndexPage />} />
-          <Route path="/user/login" element={<LoginPage />} />
-          <Route path="/user/register" element={<RegisterPage />} />
-        </Route>
-      </Routes>
+      <UserContextProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<IndexPage />} />
+            <Route path="/user/login" element={<LoginPage />} />
+            <Route path="/user/register" element={<RegisterPage />} />
+          </Route>
+        </Routes>
+      </UserContextProvider>
     </>
   );
 }
