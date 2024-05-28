@@ -25,9 +25,7 @@ export default function RegisterPage() {
   const registerUser = async (e) => {
     e.preventDefault();
     try {
-      const userInfo = await axios.post("/user/register", formData, {
-        withCredentials: true,
-      });
+      const userInfo = await axios.post("/user/register", formData);
       setUser(userInfo.data.data.userData);
       alert("Registration successful!");
       setRedirect(true);

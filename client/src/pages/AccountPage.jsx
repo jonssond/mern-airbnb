@@ -6,14 +6,20 @@ import axios from "axios";
 export default function AccountPage() {
   const [redirect, setRedirect] = useState(false);
   let { subpage } = useParams();
-  const { ready, user } = useContext(UserContext);
+  const { ready, user, setUser } = useContext(UserContext);
 
-  if (ready && !user) {
-    return <Navigate to={"/user/login"} />;
+  async function logout() {
+    await axios.post("/user/logout");
+    setRedirect(true);
+    setUser(null);
   }
 
   if (!ready) {
     return "Loading...";
+  }
+
+  if (ready && !user && !redirect) {
+    return <Navigate to={"/user/login"} />;
   }
 
   if (subpage === undefined) {
@@ -28,13 +34,8 @@ export default function AccountPage() {
     return classes;
   }
 
-  async function logout() {
-    await axios.post("/user/logout");
-    setRedirect(true);
-  }
-
   if (redirect) {
-    <Navigate to={"/"} />;
+    return <Navigate to={"/"} />;
   }
 
   return (

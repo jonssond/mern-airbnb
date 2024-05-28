@@ -23,9 +23,7 @@ export default function LoginPage() {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      const userInfo = await axios.post("/user/login", formData, {
-        withCredentials: true,
-      });
+      const userInfo = await axios.post("/user/login", formData);
       setUser(userInfo.data.data.userData);
       alert("Login succesful");
       setRedirect(true);
