@@ -48,7 +48,7 @@ export default function RegisterPage() {
             name="name"
             placeholder="your name"
             id="name"
-            value={formData.name}
+            value={formData.title}
             onChange={handleChange}
             required
           />

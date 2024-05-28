@@ -1,22 +1,63 @@
 import FormTitles from "./FormTitles";
 import FormSubtitles from "./FormSubtitles";
+import Perks from "./Perks";
+import CheckInfo from "./CheckInfo";
+import { useState } from "react";
 
 export default function NewPlace() {
+  const [formData, setFormData] = useState({
+    title: "",
+    address: "",
+    photos: [],
+    description: "",
+    perks: [],
+    extraInfo: "",
+    checkIn: "",
+    checkOut: "",
+    maxGuests: 1,
+  });
+  const [photoLink, setPhotoLink] = useState("");
+  const [perks, setPerks] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="flex justify-center items-center">
       <form className="w-2/4">
         <FormTitles>Title</FormTitles>
         <FormSubtitles>title for this accomodation</FormSubtitles>
-        <input type="text" placeholder="ex: 'My lovely apartment'" />
+        <input
+          type="text"
+          placeholder="ex: 'My lovely apartment'"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          required
+        />
         <FormTitles>Address</FormTitles>
         <FormSubtitles>address for this accomodation</FormSubtitles>
-        <input type="text" placeholder="ex: '5th Avenue, New York'" />
+        <input
+          type="text"
+          placeholder="ex: '5th Avenue, New York'"
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+          required
+        />
         <FormTitles>Photos</FormTitles>
         <FormSubtitles>the more photos, the better!</FormSubtitles>
         <div className="flex gap-2">
           <input
             type="text"
             placeholder="add photos using a link: .jpg or .png."
+            value={photoLink}
+            onChange={(ev) => setPhotoLink(ev.target.value)}
           />
           <button className="bg-primary px-4 rounded-2xl text-white">
             Add&nbsp;photo
@@ -43,7 +84,55 @@ export default function NewPlace() {
         </div>
         <FormTitles>Description</FormTitles>
         <FormSubtitles>describe your place!</FormSubtitles>
-        <textarea />
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+        />
+        <FormTitles>Perks</FormTitles>
+        <FormSubtitles>select all the perks of your place</FormSubtitles>
+        <Perks selected={perks} onChange={setPerks} />
+        <FormTitles>Extra information</FormTitles>
+        <FormSubtitles>
+          give all useful information! ex: house rules, etc.
+        </FormSubtitles>
+        <textarea
+          name="extraInfo"
+          value={formData.extraInfo}
+          onChange={handleChange}
+        />
+        <FormTitles>Check-in & Check-out, maximum guests</FormTitles>
+        <FormSubtitles>
+          specify the check-in/out window and the maximum number of guests
+        </FormSubtitles>
+        <div className="grid sm:grid-cols-3 gap-2">
+          <CheckInfo
+            tooltip="16:00"
+            titleH="Check-in time"
+            nameOf="checkIn"
+            valueOf={formData.checkIn}
+            onChange={handleChange}
+          />
+          <CheckInfo
+            tooltip="18:00"
+            titleH="Check-out time"
+            nameOf="checkOut"
+            valueOf={formData.checkOut}
+            onChange={handleChange}
+          />
+          <CheckInfo
+            tooltip="ex: 7 guests"
+            titleH="Maximum number of guests"
+            nameOf="maxGuests"
+            valueOf={formData.maxGuests}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="text-center">
+          <button className="bg-primary text-white my-4 w-2/3 rounded-full p-2">
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );
