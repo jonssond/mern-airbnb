@@ -3,6 +3,7 @@ import FormSubtitles from "./FormSubtitles";
 import Perks from "./Perks";
 import CheckInfo from "./CheckInfo";
 import { useState } from "react";
+import axios from "axios";
 
 export default function NewPlace() {
   const [formData, setFormData] = useState({
@@ -25,6 +26,18 @@ export default function NewPlace() {
       ...formData,
       [name]: value,
     });
+  };
+
+  const addPhotoByLink = async (ev) => {
+    ev.preventDefault();
+    const res = await axios.post("/upload-by-link", { link: photoLink });
+    const filename = res.data.path;
+    setFormData((prev) => ({
+      ...prev,
+      photos: [...prev.photos, filename],
+    }));
+    setPhotoLink("");
+    console.log(formData.photos);
   };
 
   return (
@@ -59,12 +72,25 @@ export default function NewPlace() {
             value={photoLink}
             onChange={(ev) => setPhotoLink(ev.target.value)}
           />
-          <button className="bg-primary px-4 rounded-2xl text-white">
+          <button
+            className="bg-primary px-4 rounded-2xl text-white"
+            onClick={addPhotoByLink}
+          >
             Add&nbsp;photo
           </button>
         </div>
-        <div className="mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          <button className="flex justify-center gap-2 border bg-transparent rounded-2xl p-8 w-48 text-2xl text-gray-600">
+        <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {formData.photos.length > 0 &&
+            formData.photos.map((link) => (
+              <div key={link}>
+                <img
+                  className="rounded-2xl"
+                  src={`http://localhost:3000/uploads/${link}`}
+                  alt=""
+                />
+              </div>
+            ))}
+          <button className="flex items-center justify-center gap-2 border bg-transparent rounded-2xl p-2 w-48 text-2xl text-gray-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
